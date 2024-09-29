@@ -1,0 +1,37 @@
+
+CREATE TABLE com_logali_Headers (
+  ID NVARCHAR(36) NOT NULL,
+  email NVARCHAR(30) NOT NULL,
+  FirstName NVARCHAR(30) NOT NULL,
+  LastName NVARCHAR(255),
+  Country NVARCHAR(30),
+  CreateOn DATE_TEXT DEFAULT CURRENT_TIMESTAMP,
+  DeliveryDate DATETIME_TEXT,
+  OrderStatus INTEGER,
+  ImageUrl NVARCHAR(255),
+  PRIMARY KEY(ID, email)
+);
+
+CREATE TABLE com_logali_Items (
+  ID NVARCHAR(36) NOT NULL,
+  Position INTEGER NOT NULL,
+  Name NVARCHAR(40) NOT NULL,
+  Description NVARCHAR(40),
+  ReleaseDate DATE_TEXT,
+  DiscontinuedDate DATE_TEXT,
+  Price DECIMAL(12, 2),
+  Height DECIMAL(12, 2),
+  Width DECIMAL(12, 2),
+  Depth DECIMAL(12, 2),
+  Quantity DECIMAL(12, 2),
+  UnitOfMeasure NVARCHAR(255),
+  PRIMARY KEY(ID, Position)
+);
+
+CREATE VIEW com_logali_SelOrderTotal AS SELECT
+  Headers_0.ID,
+  Headers_0.email,
+  sum(Items_1.Price * Items_1.Quantity) AS TotalAmount
+FROM (com_logali_Headers AS Headers_0 LEFT JOIN com_logali_Items AS Items_1 ON Headers_0.ID = Items_1.ID)
+GROUP BY Headers_0.ID, Headers_0.email;
+

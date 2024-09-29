@@ -2,7 +2,7 @@
   "name": "SalesOrder",
   "version": "1.0.0",
   "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
+  "repository": "https://github.com/jlobatora/CAP_ProyectoBTP.git",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
@@ -14,6 +14,6 @@
     "@cap-js/cds-types": "^0.6"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds watch"
   }
 }

@@ -1,0 +1,12 @@
+ID,Position,Name,Description,ReleaseDate,DiscontinuedDate,Price,Height,Width,Depth,Quantity,UnitOfMeasure,Header_ID,Header_email
+1,10,Bread,Whole grain bread,1992-01-01T00:00:00Z,,2.5,5,10,8,20,CM,1,juan@hotmail.com
+1,20,Milk,Low fat milk,1995-10-01T00:00:00Z,,3.5,5,10,8,15,CM,1,juan@hotmail.com
+1,30,Vint soda,Americana Variety - Mix of 6 flavors,2000-10-01T00:00:00Z,,20.9,5,10,8,8,CM,1,juan@hotmail.com
+1,40,Havina Cola,The Original Key Lime Cola,2005-10-01T00:00:00Z,2006-10-01T00:00:00Z,19.9,5,10,8,10,CM,1,juan@hotmail.com
+1,50,Fruit Punch,"Mango flavor, 8.3 Ounce Cans (Pack of 24)",2003-01-05T00:00:00Z,,22.99,5,10,8,5,CM,1,juan@hotmail.com
+1,60,Cranberry Juice,16-Ounce Plastic Bottles (Pack of 12),2006-08-04T00:00:00Z,,22.8,5,10,8,12,CM,1,juan@hotmail.com
+1,70,Pink Lemonade,36 Ounce Cans (Pack of 3),2006-11-05T00:00:00Z,,18.8,5,10,8,6,CM,1,juan@hotmail.com
+1,80,DVD Player,1080P Upconversion DVD Player,2006-11-15T00:00:00Z,,35.88,5,10,8,0,CM,1,juan@hotmail.com
+1,90,LCD HDTV,42 inch 1080p LCD with Built-in Blu-ray Disc Player,2008-05-08T00:00:00Z,,1088.8,5,10,8,0,CM,1,juan@hotmail.com
+1,100,Lemonade,"Classic, refreshing lemonade (Single bottle)",1970-01-01T00:00:00Z,,1.01,5,10,8,7,CM,1,juan@hotmail.com
+1,110,Coffee,Bulk size can of instant coffee,1982-12-31T00:00:00Z,,6.99,5,10,8,16,CM,1,juan@hotmail.com
