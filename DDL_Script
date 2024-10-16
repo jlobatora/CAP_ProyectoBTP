@@ -25,7 +25,19 @@ CREATE TABLE com_logali_Items (
   Depth DECIMAL(12, 2),
   Quantity DECIMAL(12, 2),
   UnitOfMeasure NVARCHAR(255),
+  Header_ID NVARCHAR(36),
+  Header_email NVARCHAR(30),
   PRIMARY KEY(ID, Position)
+);
+
+CREATE TABLE com_logali_Items_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(36) NOT NULL,
+  Position INTEGER NOT NULL,
+  Name NVARCHAR(40) NOT NULL,
+  Description NVARCHAR(40),
+  UnitOfMeasure NVARCHAR(255),
+  PRIMARY KEY(locale, ID, Position)
 );
 
 CREATE VIEW com_logali_SelOrderTotal AS SELECT
@@ -34,4 +46,21 @@ CREATE VIEW com_logali_SelOrderTotal AS SELECT
   sum(Items_1.Price * Items_1.Quantity) AS TotalAmount
 FROM (com_logali_Headers AS Headers_0 LEFT JOIN com_logali_Items AS Items_1 ON Headers_0.ID = Items_1.ID)
 GROUP BY Headers_0.ID, Headers_0.email;
+
+CREATE VIEW localized_com_logali_Items AS SELECT
+  L_0.ID,
+  L_0.Position,
+  coalesce(localized_1.Name, L_0.Name) AS Name,
+  coalesce(localized_1.Description, L_0.Description) AS Description,
+  L_0.ReleaseDate,
+  L_0.DiscontinuedDate,
+  L_0.Price,
+  L_0.Height,
+  L_0.Width,
+  L_0.Depth,
+  L_0.Quantity,
+  coalesce(localized_1.UnitOfMeasure, L_0.UnitOfMeasure) AS UnitOfMeasure,
+  L_0.Header_ID,
+  L_0.Header_email
+FROM (com_logali_Items AS L_0 LEFT JOIN com_logali_Items_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.Position = L_0.Position AND localized_1.locale = session_context( '$user.locale' ));
 

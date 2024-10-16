@@ -1,16 +1,19 @@
 namespace com.logali;
 
+using { Country, managed } from '@sap/cds/common';
+
 define type decimal : Decimal(12, 2);
 
 type Status         : Integer enum {
 
     Pending   = 1;
     Completed = 2;
+    Rejected  = 3;
 
 }
 
 //Entidad de encabezado.
-entity Headers {
+entity Headers  {
 
     key ID           : String(36) not null;
     key email        : String(30) not null;
@@ -19,37 +22,39 @@ entity Headers {
         Country      : String(30);
         CreateOn     : Date default $now;
         DeliveryDate : DateTime;
-        OrderStatus  : Status;
-        ImageUrl     : String;
+        OrderStatus  : Status default 1;
+        ImageUrl     : String @UI.IsImageURL;
         //asociacion no administrada
         //ToItems          : Association to many Items
         //                        on ToItems.ID = ID;
-
-        ToItems : Association to many Items;
+        //Items : Association to many Items on Items.ID = $self.ID;
+        Items        : Composition of many Items
+                           on Items.Header = $self;
 
 }
 
-
 entity Items {
 
-    key ID                : String(36);
+    key ID                : String(36) not null;
     key Position          : Integer;
-        Name              : String(40) not null;
-        Description       : String(40);
+        Name              : localized String(40) not null;
+        Description       : localized String(40);
         ReleaseDate       : Date;
         DiscontinuedDate  : Date;
-        Price             : decimal;
-        Height            : decimal;
-        Width             : decimal;
-        Depth             : decimal;
+
+        Price             : decimal @Measures.ISOCurrency: currency;
+        Height            : decimal @Measures.Unit : UnitOfMeasure;
+        Width             : decimal @Measures.Unit : UnitOfMeasure;
+        Depth             : decimal  @Measures.Unit : UnitOfMeasure;
         Quantity          : decimal;
-        UnitOfMeasure     : String;
+        UnitOfMeasure     : localized String @Common.IsUnit;
         virtual NetAmount : decimal; //elemento virtual para devolver el importe de la linea. @Core.Computed : false si quisieramos enviar el neto desde el cliente.
         //asociacion no administrada
         //ToHeader          : Association to one Headers
         //                        on ToHeader.ID = ID;
-
-        Header : Association to one Headers;
+        currency : String default 'EUR' @Common.IsCurrency;
+        //Header : Association to one Headers on Header.ID = $self.ID;
+        Header            : Association to Headers;
 }
 
 entity SelOrderTotal as
