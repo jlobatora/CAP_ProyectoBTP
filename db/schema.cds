@@ -1,6 +1,6 @@
 namespace com.logali;
 
-using { Country, managed } from '@sap/cds/common';
+using { Country } from '@sap/cds/common';
 
 define type decimal : Decimal(12, 2);
 
@@ -29,14 +29,14 @@ entity Headers  {
         //                        on ToItems.ID = ID;
         //Items : Association to many Items on Items.ID = $self.ID;
         Items        : Composition of many Items
-                           on Items.Header = $self;
+                           on Items.ID = $self.ID;
 
 }
 
 entity Items {
 
     key ID                : String(36) not null;
-    key Position          : Integer;
+    key Position          : Integer not null;
         Name              : localized String(40) not null;
         Description       : localized String(40);
         ReleaseDate       : Date;
